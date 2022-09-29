@@ -49,7 +49,7 @@ def ui_menu():
             break
     return rez
 
-def ui_menu1():
+def ui_podmenu():
     while True:
         print('Выберите следующее действие\n'
         '6 - редактирование\n'
