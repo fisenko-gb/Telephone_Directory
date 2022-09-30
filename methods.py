@@ -17,10 +17,16 @@ def m_adding(name_path_file : str, record : list) -> int:
         2. Преобразование в .json
         3. Окрытие файла для добавления и запись в конец
     '''
-    # dict - > json
-    # list - > json
-    # filopen
-    pass
+    try:
+        import json                                 # импортируем библиотеку
+        with open(name_path_file, "a+", encoding='utf-8') as my_file:  # Записываем в файл
+            for i in range(0, len(record)):
+                string_json = json.dumps(record[i]) # сериализуем его в JSON-структуру, как строку
+                # print(string_json)
+                my_file.write(f'{string_json}\r')  # Записываем в файл с возвратом корретки
+        return 1
+    except:
+        return -1
 
 def m_delete(name_path_file : str, id_value : int) -> int:
     '''
@@ -44,7 +50,19 @@ def m_delete(name_path_file : str, id_value : int) -> int:
         6. Перезапись файла в типе данных json
         3. Закрытие файла
     '''
-    pass
+    # try:
+    #     import json                                 # импортируем библиотеку
+    #     with open(name_path_file, "r", encoding='utf-8') as my_file:  # Записываем в файл
+    #         string_json = my_file.readlines()
+    # #     string_json 
+
+    #     for i in range(0, len(record)):
+    #         string_json = json.dumps(record[i]) # сериализуем его в JSON-структуру, как строку
+    #         # print(string_json)
+    #         my_file.write(f'{string_json}\r')  # Записываем в файл с возвратом корретки
+    #     return 1
+    # except:
+    #     return -1
 
 def m_edit(name_path_file : str, id_value : int) -> int:
     '''
