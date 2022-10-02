@@ -125,6 +125,4 @@ while True:
         new_user_data = ui.make_lst_of_dict_for_add()
         action(name_file, inp_user, new_user_data)
         continue
-    elif inp_user == 5:
-        ui.print_ui("До свидания!")
-        break
+    
