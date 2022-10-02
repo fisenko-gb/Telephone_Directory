@@ -1,50 +1,68 @@
-import json
 import csv
+import json
 from textwrap import indent
-from turtle import update
-from typing import ChainMap
 
-# Модуль осуществляет загрузку основной json базы данных
+''' Модуль осуществляет импорт csv базы данных '''
 
-# def load_main_dict():
-#     with open('test.json', 'r') as main_json:
-#         data = json.load(main_json)
+def import_csv():
+    result = []
+    with open('csv_base.csv', encoding='utf-8') as csv_file:
+        file_read = csv.reader(csv_file, delimiter=',')
+        count = 0
+        for row in file_read:
+            if count == 0:
+                count += 1
+                continue
+            else:
+                temp_dict ={}
+                temp_dict['id'] = row[0]
+                temp_dict['surname'] = row[1]
+                temp_dict['name'] = row[2]
+                temp_dict['fathername'] = row[3]
+                temp_dict['telefon'] = row[4]
+                temp_dict['comment'] = row[5]
+            count += 1
+    with open('base.json', 'w') as file:
+        json.dump(result, file, indent= 4)
 
-#         print(type(data))
-#     return data
+    print(f'Импорт контактов завершен успешно, импортированно {count} контактов')
 
-# def load_import_bd():
-#     with open('test1.json', 'r') as imp_base:
-#         data1 = json.load(imp_base)
-#         print(data1)
-#     return data1
-# load_import_bd()
-# load_import_bd()
+def import_txt():
+    result = []
+    with open('text_base.txt', encoding='utf-8') as text_file:
+        file_read = text_file.read()
+        count = 0
+        for row in file_read:
+            if count == 0:
+                count += 1
+                continue
+            else:
+                temp_dict ={}
+                temp_dict['id'] = row[0]
+                temp_dict['surname'] = row[1]
+                temp_dict['name'] = row[2]
+                temp_dict['fathername'] = row[3]
+                temp_dict['telefon'] = row[4]
+                temp_dict['comment'] = row[5]
+            count += 1
+    with open('base.json', 'w') as file:
+        json.dump(result, file, indent= 4)
 
-# def import_bd():
-#     main_bd = load_main_dict()
-#     imp_bd = load_import_bd()
-#     main_bd.update(imp_bd)
+    print(f'Импорт контактов завершен успешно, импортированно {count} контактов')
+
+
+        
     
-#     return main_bd
-
-with open('test.json', 'a', encoding='utf-8') as main_json:
-        data = json.load(main_json)
-        for line in data:
-            print(line)
+    
 
 
 
 
 
-name_path_file = "test.json"
-print(record)
-print(len(record))
-with open("test.json", "a+", encoding='utf-8') as my_file:  # Записываем в файл
-    for i in range(0, len(record)):
-        string_json = json.dumps(record[i]) # сериализуем его в JSON-структуру, как строку
-        # print(string_json)
-        my_file.write(f'{string_json}\r')  # Записываем в файл с возвратом корретки
+
+
+
+
 
         
 
