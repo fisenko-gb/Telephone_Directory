@@ -2,15 +2,15 @@
 
 import ui
 import methods
-import json 
+#import json 
 import time
 
 
 name_file = "our_bd.json"
 
-def convert(stroka: str) -> dict:
-    res_dict=json.loads(stroka) 
-    return res_dict
+# def convert(stroka: str) -> dict:
+#     res_dict=json.loads(stroka) 
+#     return res_dict
 
 def labor(do_it: int, list_rezult):
     if do_it == 1:
@@ -19,7 +19,7 @@ def labor(do_it: int, list_rezult):
         our_bd = methods.m_edit(name_file, list_dick)
         ui.print_ui(our_bd)
         time.sleep(3)
-        ui.ui_menu()
+        return
 
     if do_it == 2:
                 # импорт
@@ -34,19 +34,18 @@ def labor(do_it: int, list_rezult):
             res = methods.export_json()
             ui.result_operation(res)
             time.sleep(3)
-            ui.ui_menu()
+            return
 
     if do_it == 3:
                 # удаление
         our_bd = methods.m_delete(name_file, list_rezult)
         ui.print_ui(our_bd)
         time.sleep(3)
-        ui.ui_menu()
+        return
 
                 # выход в основное меню
     if do_it == 4:
-        ui.ui_menu()
-    
+        return
 
 def action(name_file, inp_user, user_inf = ""):
     if 1 == inp_user:    # это поиск
@@ -58,56 +57,72 @@ def action(name_file, inp_user, user_inf = ""):
             ui.print_ui(list_rez)   # распечатает в консоль найденное
             do_it = ui.ui_podmenu() # метод должен спросить за 1, 2, 3, 4 пункты и вернуть ответ в int
             labor(do_it, list_rez)
-        else:
+            return
+    else:
             # метод должен спросить какой id из выведенных в консоль пользователь выбирает и возвращает его, - в list
-            list_id = ui.make_lst_id()   
-            do_it = ui.ui_podmenu()
-            labor(do_it, list_id)
+        list_id = ui.make_lst_id()   
+        do_it = ui.ui_podmenu()
+        labor(do_it, list_id)
+        return
   
     if 2 == inp_user:  #  добавление
         # метод должен выдать последовательно имена полей, а пользователь набирает что ему нужно. Пример: Surname: Бобкин
         # Name: Алексей и т.д.. Все долно сохраняться в список словарей. Метод возвращает список словарей
-        list_dtct = ui.make_lst_of_dict_for_add()
-        our_bd = methods.m_adding(name_file, list_dtct)
+        our_bd = methods.m_adding(name_file, user_inf)
         ui.print_ui(our_bd)
+        time.sleep(3)
+        return
 
     if 3 == inp_user:  #  экспорт
         format_file = ui.format_operation()
         if format_file == 1:
             res = methods.export_txt()
             ui.result_operation(res)
+            time.sleep(3)
+            return
         elif format_file == 2:
             res = methods.export_csv()
             ui.result_operation(res)
+            time.sleep(3)
+            return
         elif format_file == 3:
             res = methods.export_json()
             ui.result_operation(res)
             time.sleep(3)
-            ui.ui_menu()
-
+            return
 
     if 4 == inp_user:   #  импорт
         format_file = ui.format_operation()
         if format_file == 1:
             res = methods.import_txt()
             ui.result_operation(res)
+            time.sleep(3)
+            return
         elif format_file == 2:
             res = methods.import_csv()
             ui.result_operation(res)
+            time.sleep(3)
+            return
         elif format_file == 3:
             res = methods.import_json()
             ui.result_operation(res)
             time.sleep(3)
-            ui.ui_menu()
+            return
 
 
-    # if "5" == inp_user:
-    #     methods.?()
-
-
-# get, set, action   -get получить выбор пользователя, и данные
-# set - отправляет данные 
-# action - вся работа
-# convert - конвертирует строку в словарь(питон, dict)
 
 ui.hello_user()
+
+while True:
+    inp_user = ui.ui_menu()
+    if inp_user == 3 or inp_user == 4:
+        action(name_file, inp_user)
+    elif inp_user == 1:
+        user_infor = ui.ui_input_new_data
+        action(name_file, inp_user, user_infor)
+        continue
+    elif inp_user == 2:
+        new_user_data = ui.make_lst_of_dict_for_add()
+        action(name_file, inp_user, new_user_data)
+        continue
+    

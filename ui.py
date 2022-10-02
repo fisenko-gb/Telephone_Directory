@@ -145,20 +145,21 @@ def ui_menu():  # Основное меню
             logger.dif_log(t_str)
             print(t_str)
             continue
-        user_input = int(user_input)
-        if user_input == 1:
-            new_user_data = ui_input_new_data()
-            return user_input, new_user_data
-        elif user_input == 2:
-            new_user_data = make_lst_of_dict_for_add()
-            return user_input, new_user_data
-        elif user_input == 3:
-            return user_input
-        elif user_input == 4:
-            return user_input
-        elif user_input == 5:
-            print('До свидания!')
-            exit()
+        return int(user_input)
+
+        # if user_input == 1:
+        #     new_user_data = ui_input_new_data()
+        #     return user_input, new_user_data
+        # elif user_input == 2:
+        #     new_user_data = make_lst_of_dict_for_add()
+        #     return user_input, new_user_data
+        # elif user_input == 3:
+        #     return user_input
+        # elif user_input == 4:
+        #     return user_input
+        # elif user_input == 5:
+        #     print('До свидания!')
+        #     exit()
         
 
 
