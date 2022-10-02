@@ -257,17 +257,12 @@ def m_search(name_path_file : str, input_str : str) -> list:
     '''
     pass
 
-# def convert_str_to_dict(t_str : str) -> dict:
-#     pass
-
 
 # передача небольшой функции в качестве аргумента:
 # pairs = [(1, 'one'), (2, 'two'), (3, 'three'), (4, 'four')]
 # pairs.sort(key=lambda pair: pair[1])
 # pairs
 # -> [(4, 'four'), (1, 'one'), (3, 'three'), (2, 'two')]
-
-
 
 # Небольшие анонимные функции могут быть созданы с помощью lambda. 
 # Эта функция возвращает сумму двух своих аргументов: lambda a, b: a+b. 
@@ -284,58 +279,12 @@ def m_search(name_path_file : str, input_str : str) -> list:
 
 
 
-#****************************************************************************** 
-#********************************* НАЧАЛО ТЕСТОВ ****************************** 
-#****************************************************************************** 
-def give_me_any_list_of_dict():
+# #****************************************************************************** 
+# #********************************* НАЧАЛО ТЕСТОВ ****************************** 
+# #****************************************************************************** 
+# def give_me_any_list_of_dict():
 
-    test_dict = [
-        {
-            "id": 1,
-            "surname": "Иванов",
-            "name": "Иван",
-            "fathername": "Иванович",
-            "telefon": 89270010101,
-            "comment": "телефон Иванов"
-        },
-        {
-            "id": 2,
-            "surname": "Петров",
-            "name": "Петр",
-            "fathername": "Петрович",
-            "telefon": 89270020202,
-            "comment": "телефон Петрова"
-        },
-        {
-            "id": 3,
-            "surname": "Степанов",
-            "name": "Степан",
-            "fathername": "Степанович",
-            "telefon": 89270030303,
-            "comment": "телефон Степанова"
-        },
-        {
-            "id": 4,
-            "surname": "Сидоров",
-            "name": "Иван",
-            "fathername": "Петрович",
-            "telefon": 89270040404,
-            "comment": "телефон Сидорова"
-        }
-    ]
-    return test_dict
-
-print("\n Выполнение тестов")
-## Получить список по умолчанию из 4-х записей/словарей
-dict_test = give_me_any_list_of_dict()
-# print("\nPRIMARY (not file) dict_test = ", dict_test)
-name_file = "test_alex.json"
-
-#****************************************************************************** 
-#************ ТЕСТ № 1 - ДОБАВЛЕНИЕ В КОНЕЦ ТЕЛЕФОННОГО СПРАВОЧНИКА *********** 
-#****************************************************************************** 
-# #для добавления в конец
-# dict_to_add = [
+#     test_dict = [
 #         {
 #             "id": 1,
 #             "surname": "Иванов",
@@ -343,70 +292,116 @@ name_file = "test_alex.json"
 #             "fathername": "Иванович",
 #             "telefon": 89270010101,
 #             "comment": "телефон Иванов"
+#         },
+#         {
+#             "id": 2,
+#             "surname": "Петров",
+#             "name": "Петр",
+#             "fathername": "Петрович",
+#             "telefon": 89270020202,
+#             "comment": "телефон Петрова"
+#         },
+#         {
+#             "id": 3,
+#             "surname": "Степанов",
+#             "name": "Степан",
+#             "fathername": "Степанович",
+#             "telefon": 89270030303,
+#             "comment": "телефон Степанова"
+#         },
+#         {
+#             "id": 4,
+#             "surname": "Сидоров",
+#             "name": "Иван",
+#             "fathername": "Петрович",
+#             "telefon": 89270040404,
+#             "comment": "телефон Сидорова"
+#         }
+#     ]
+#     return test_dict
+
+# print("\n Выполнение тестов")
+# ## Получить список по умолчанию из 4-х записей/словарей
+# dict_test = give_me_any_list_of_dict()
+# # print("\nPRIMARY (not file) dict_test = ", dict_test)
+# name_file = "test_alex.json"
+
+# #****************************************************************************** 
+# #************ ТЕСТ № 1 - ДОБАВЛЕНИЕ В КОНЕЦ ТЕЛЕФОННОГО СПРАВОЧНИКА *********** 
+# #****************************************************************************** 
+# # #для добавления в конец
+# # dict_to_add = [
+# #         {
+# #             "id": 1,
+# #             "surname": "Иванов",
+# #             "name": "Иван",
+# #             "fathername": "Иванович",
+# #             "telefon": 89270010101,
+# #             "comment": "телефон Иванов"
+# #         }
+# # ]
+# # print("\ndict_to_add = ", dict_to_add)
+# # #Добавление новой записи в конец
+# # dict_test_updated = m_adding(name_file, dict_test)
+# # print("\ndict_test_updated = ", dict_test_updated)
+
+# #****************************************************************************** 
+# #******** ТЕСТ № 2 - УДАЛЕНИЕ ЗАПИСИ ПО ID В ТЕЛЕФОННОМ СПРАВОЧНИКЕ *********** 
+# #****************************************************************************** 
+# # # Удаление записи по номеру id
+# # dict_test_minus_one_by_id = m_delete(name_file, 5)
+# # print("\n dict_test_minus_one_by_id = ", dict_test_minus_one_by_id)
+
+# #****************************************************************************** 
+# #******** ТЕСТ № 3 - ИЗМЕНЕНИЕ ЗАПИСИ ПО ID В ТЕЛЕФОННОМ СПРАВОЧНИКЕ ********** 
+# #****************************************************************************** 
+# # Список из словарей для изменения
+# list_dict_with_changes = [
+#         {
+#             "id": 1,
+#             "surname": "Гвидонов",
+#             "name": "Гвидон",
+#             "fathername": "Гвидонович",
+#             "telefon": 0,
+#             "comment": ""
 #         }
 # ]
-# print("\ndict_to_add = ", dict_to_add)
-# #Добавление новой записи в конец
-# dict_test_updated = m_adding(name_file, dict_test)
-# print("\ndict_test_updated = ", dict_test_updated)
+# # Словарь для изменения
+# dict_with_changes = \
+#         {
+#             "id": 1,
+#             "surname": "Словарёв",
+#             "name": "Словарь",
+#             "fathername": "Словаревич",
+#             "telefon": 0,
+#             "comment": "Демо со словарём"
+#         }
 
-#****************************************************************************** 
-#******** ТЕСТ № 2 - УДАЛЕНИЕ ЗАПИСИ ПО ID В ТЕЛЕФОННОМ СПРАВОЧНИКЕ *********** 
-#****************************************************************************** 
-# # Удаление записи по номеру id
-# dict_test_minus_one_by_id = m_delete(name_file, 5)
-# print("\n dict_test_minus_one_by_id = ", dict_test_minus_one_by_id)
+# # ! сначала нужн очистить файл "test_alex.json"
+# m_adding(name_file, give_me_any_list_of_dict())
 
-#****************************************************************************** 
-#******** ТЕСТ № 3 - ИЗМЕНЕНИЕ ЗАПИСИ ПО ID В ТЕЛЕФОННОМ СПРАВОЧНИКЕ ********** 
-#****************************************************************************** 
-# Список из словарей для изменения
-list_dict_with_changes = [
-        {
-            "id": 1,
-            "surname": "Гвидонов",
-            "name": "Гвидон",
-            "fathername": "Гвидонович",
-            "telefon": 0,
-            "comment": ""
-        }
-]
-# Словарь для изменения
-dict_with_changes = \
-        {
-            "id": 1,
-            "surname": "Словарёв",
-            "name": "Словарь",
-            "fathername": "Словаревич",
-            "telefon": 0,
-            "comment": "Демо со словарём"
-        }
+# # демонстрация успеха с списком словарей в аргументах
+# dict_test_midifited_by_id = m_edit(name_file, list_dict_with_changes)
+# print("\n Успех со списком - dict_test_midifited_by_id = ", dict_test_midifited_by_id)
 
-# ! сначала нужн очистить файл "test_alex.json"
-m_adding(name_file, give_me_any_list_of_dict())
+# # демонстрация провала с списком словарей в аргументах (т.к. записи нет с id = 100)
+# list_dict_with_changes_second = list_dict_with_changes
+# (list_dict_with_changes_second[0])['id'] = 100
+# dict_test_midifited_by_id = m_edit(name_file, list_dict_with_changes_second)
+# print("\nПровал - dict_test_midifited_by_id = ", dict_test_midifited_by_id)
 
-# демонстрация успеха с списком словарей в аргументах
-dict_test_midifited_by_id = m_edit(name_file, list_dict_with_changes)
-print("\n Успех со списком - dict_test_midifited_by_id = ", dict_test_midifited_by_id)
+# # демонстрация успеха с словарём в аргументах
+# dict_test_midifited_by_id = m_edit(name_file, dict_with_changes)
+# print("\n Успех со словарём - dict_test_midifited_by_id = ", dict_test_midifited_by_id)
 
-# демонстрация провала с списком словарей в аргументах (т.к. записи нет с id = 100)
-list_dict_with_changes_second = list_dict_with_changes
-(list_dict_with_changes_second[0])['id'] = 100
-dict_test_midifited_by_id = m_edit(name_file, list_dict_with_changes_second)
-print("\nПровал - dict_test_midifited_by_id = ", dict_test_midifited_by_id)
+# # демонстрация успеха с списком словарей в аргументах
+# (list_dict_with_changes[0])['id'] = 1
+# dict_test_midifited_by_id = m_edit(name_file, list_dict_with_changes)
+# print("\n Успех со списком - dict_test_midifited_by_id = ", dict_test_midifited_by_id)
 
-# демонстрация успеха с словарём в аргументах
-dict_test_midifited_by_id = m_edit(name_file, dict_with_changes)
-print("\n Успех со словарём - dict_test_midifited_by_id = ", dict_test_midifited_by_id)
-
-# демонстрация успеха с списком словарей в аргументах
-(list_dict_with_changes[0])['id'] = 1
-dict_test_midifited_by_id = m_edit(name_file, list_dict_with_changes)
-print("\n Успех со списком - dict_test_midifited_by_id = ", dict_test_midifited_by_id)
-
-#****************************************************************************** 
-#************ ТЕСТ № 4 - ПОИСК ЗАПИСИ  В ТЕЛЕФОННОМ СПРАВОЧНИКЕ *************** 
-#****************************************************************************** 
+# #****************************************************************************** 
+# #************ ТЕСТ № 4 - ПОИСК ЗАПИСИ  В ТЕЛЕФОННОМ СПРАВОЧНИКЕ *************** 
+# #****************************************************************************** 
 
 
-print("\nЗавершение тестов\n ")
+# print("\nЗавершение тестов\n ")
