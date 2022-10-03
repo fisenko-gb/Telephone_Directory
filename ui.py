@@ -78,11 +78,11 @@ def format_operation(name_operation):   # Принимает название о
             logger.dif_log(t_str)
             print(t_str)
             continue
-        return user_input
+        return int(user_input)
 
 
-def result_operation(x, name_operation):  # Оповещает пользователя выполнена операция или нет
-    if x == -1:
+def result_operation(rez, name_operation):  # Оповещает пользователя выполнена операция или нет
+    if rez == -1:
         print(f'Операция - {name_operation} НЕ выполнена! ')
     else: 
         print(f'Операция - {name_operation} выполнена! ')

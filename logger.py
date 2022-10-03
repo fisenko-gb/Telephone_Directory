@@ -1,28 +1,8 @@
 # Модуль осуществляет логирование всех действий в программе
-from datetime import datetime as dt
-from time import time
+from datetime import datetime
 
-def m_delete_logger(data):
-    time = dt.now().strftime('%H:%M')
-    with open('index.html', 'a') as file:
-        file.write('{};delete;{}\n'
-                    .format(time, data))
+def dif_log(x):
+    time = datetime.now().strftime("%Y/%m/%d, %H:%M:%S")
+    with open('surveillance.txt', 'a', encoding='UTF-8') as file:
+        file.write(f'{time}:  {x}\n')
 
-def m_adding_logger(data):
-    time = dt.now().strftime('%H:%M')
-    with open('index.html', 'a') as file:
-        file.write('{};add;{}\n'
-                    .format(time, data))
-
-def m_edit_logger(data):
-    time = dt.now().strftime('%H:%M')
-    with open('index.html', 'a') as file:
-        file.write('{};edit;{}\n'
-                    .format(time, data))
-
-
-def m_search_logger(data):
-    time = dt.now().strftime('%H:%M')
-    with open('index.html', 'a') as file:
-        file.write('{};search;{}\n'
-                    .format(time, data))

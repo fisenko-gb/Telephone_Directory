@@ -46,20 +46,31 @@ def test():
         print(*i.values(), '')
 
 
-def export_txt(t_list: list, file_name: str = 'test.txt'):
+def export_txt(file_BD, file_export: str = 'test.txt'):
     '''
     Метод ожидает на вход список словарей и записывает его в txt файл, имя которого может передоваться вторым параметром
     '''
-    with open(file_name, 'w', encoding='utf-8') as file:
+    with open(file_BD, "r", encoding="UTF-8") as my_file:    # читаем из файла
+            string_json = my_file.read()
+    t_list = json.loads(string_json) 
+    
+    with open(file_export, 'w', encoding='utf-8') as file:
         for i in t_list:
             print(*i.values(), file=file)
 
 
-def export_csv(t_list: list, file_name: str = 'test.csv'):
+def export_csv(file_BD, file_export: str = 'test.csv'):
     '''
     Метод ожидает на вход список словарей и записывает его в csv файл, имя которого может передоваться вторым параметром
     '''
-    with open(file_name, mode="w", encoding='utf-8') as w_file:
+    # импортируем библиотеку
+    # Действие 1 - считать исходную БД в переменную
+    with open(file_BD, "r", encoding="UTF-8") as my_file:    # читаем из файла
+            string_json = my_file.read()
+    t_list = json.loads(string_json) 
+
+
+    with open(file_export, mode="w", encoding='utf-8') as w_file:
         names = ['id',
                  'surname',
                  'name',
