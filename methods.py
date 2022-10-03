@@ -1,64 +1,5 @@
 # Модуль осуществляет все фукнкции работы с БД
 
-def create_dict(id:int, surname:str, name:str, fathername:str, telefon:int, comment:str):
-    ''' 
-    функция-консруктор - для создания словаря по аргументам, в соответсвие с столбцами таблицы БД
-    
-    Вход:
-        корректный набор данных строк и целых чисел, при этом отсутсвующие не допускаются
-        вызывающий должен направить хотя бы пустое значение
-    Возвращает:
-        успешное выполнение - словарь, заполненнымй значениями (аргументами) со входа
-        сбой в заполении - (-1), как индикатор сбоя операции заполнения словаря аргументами
-    '''
-    try:  # на случай, если не передали какой-то аргумент для заполнения словаря значениямм
-        mydict = {
-            'id': id,
-            'surname': surname,
-            'name': name,
-            'fathername': fathername,
-            'telefon': telefon,
-            'comment': comment
-        }
-    except:
-        return -1     # сбой выполнения
-    return mydict     # штатное выполнение
-
-def create_dict_empty():
-    ''' 
-    функция-консруктор - для создания пустого словаря, в соответсвие с столбцами таблицы БД
-    Вход:
-       отсутсвует
-    Возвращает:
-        пустой словарь для дальнейшего его заполненнения
-    '''
-    mydict = {
-        'id': 0,
-        'surname': "",
-        'name': "",
-        'fathername': "",
-        'telefon': 800000000000,
-        'comment': ""
-    }
-    return mydict
-
-# def renumirate_id_column(list_db : list) -> list:
-#     ''' 
-#     функция для перенумерации id по порядку в bd
-
-#     Вход:
-#        список словарей - исходная база данных
-#     Возвращает:
-#         пустой словарь для дальнейшего его заполненнения
-#     Пояснение:
-#         1. Окрытие файла на чтение .json
-#         2. Сохранение в типе данных json
-#         3. Закрытие файла .json
-#         4. Поиск строк по нужному критерию
-#         5. Формирование нового словаря из результата поиска
-#     '''
-
-
 def m_adding(name_path_file : str, record : list) -> list or int:
     '''
     функия для добавления записи(-ей) в конец БД (файла .json)
@@ -174,7 +115,7 @@ def m_delete(name_path_file : str, id_value : int) -> list or int:
     except:
         return -1
 
-def m_edit(name_path_file : str, record : list) ->  list or int:
+def m_edit(name_path_file : str, record : list or dict) ->  list or int:
     '''
     функция редактирования записи по указанному id в БД (файла .json) 
         id и значения для изменения хранятся в словаре/списке
@@ -236,7 +177,7 @@ def m_edit(name_path_file : str, record : list) ->  list or int:
     except:
         return -1
 
-def m_search(name_path_file : str, input_str : str) -> list:
+def m_search(name_path_file : str, condition_to_find : dict or list) -> list:
     '''
     функия поиска записи по указанному значению в БД (файла .json)
     Аргументы:
@@ -255,7 +196,207 @@ def m_search(name_path_file : str, input_str : str) -> list:
         4. Поиск строк по нужному критерию
         5. Формирование нового словаря из результата поиска
     '''
-    pass
+    test_dict = [
+        {
+            "id": 1,
+            "surname": "Иванов",
+            "name": "Иван",
+            "fathername": "Иванович",
+            "telefon": 89270010101,
+            "comment": "телефон Иванов"
+        },
+        {
+            "id": 2,
+            "surname": "Петров",
+            "name": "Петр",
+            "fathername": "Петрович",
+            "telefon": 89270020202,
+            "comment": "телефон Петрова"
+        },
+        {
+            "id": 3,
+            "surname": "Степанов",
+            "name": "Степан",
+            "fathername": "Степанович",
+            "telefon": 89270030303,
+            "comment": "телефон Степанова"
+        },
+        {
+            "id": 4,
+            "surname": "Сидоров",
+            "name": "Иван",
+            "fathername": "Петрович",
+            "telefon": 89270040404,
+            "comment": "телефон Сидорова"
+        }
+    ]
+    return test_dict
+    # try:
+    #     import json                                                     # импортируем библиотеку
+    #     # Действие 1 - считать исходную БД в переменную
+    #     with open(name_path_file, "r", encoding="UTF-8") as my_file:    # читаем из файла
+    #         string_json = my_file.read()
+    #     list_readed_dicts = json.loads(string_json)                      # проводим десериализацию JSON-объекта
+        
+    #     # Если случайно предали искомое как словарь - перезапись его в списк из словарей
+    #     if (type(record) is dict):
+    #         record = [record]
+
+    #     result = []
+    #      # Действие 2 - Поиск по критерию в списке словарей (БД из файла)
+    #     if (condition_to_find[0])['surname'] != "":
+    #         for i in list_readed_dicts:
+    #             find_what = list_readed_dicts
+    #             find_where = list_readed_dicts
+    #             if ((condition_to_find[0])['surname']).upper() in (str(k)).upper()):
+    #                 result[]
+    #                 break
+
+    #     elif (condition_to_find[0])['name'] != "":
+
+    #     elif (condition_to_find[0])['fathername'] != "":
+
+    #     elif (condition_to_find[0])['telefon'] != 0:
+
+    #     elif (condition_to_find[0])['comment'] != "":
+
+
+
+
+    #     # Действие 2.1 - Поиск индекса списка по номеру id
+    #     index_of_record_with_needed_id = -1                             # если такого id нет, то редактировать не можем
+    #     # Если случайно предали искомое как словарь - перезапись его в списк из словарей
+    #     if (type(record) is dict):
+    #         record = [record]
+    #     id_record_to_modify = (record[0])['id']                         # вытащено id из словаря/списка, выбранного пользователем на изменение
+    #     for i in range(0, len(list_readed_dicts)):                      
+    #         if (list_readed_dicts[i])['id'] == id_record_to_modify:                
+    #             index_of_record_with_needed_id = i
+    #             break  # так как id уникальный первичный ключ, одинаковых значений не может быть
+    #     # Действие 2.2 - Непосредственное редактирование по найденномув п. 2.1 индексу (уже не по не id)
+    #     if index_of_record_with_needed_id == -1:
+    #         return -1    #если не нашли id в справочнике для удаления, то выходим с отрицательным результатом выполнения
+    #     i = index_of_record_with_needed_id
+    #     # !!!!Вот это очень нехорошая часть!!!!!
+    #     # так как при изменении сруктуры БД (+- столбец|ключ) всё полетит
+    #     # for key, value in users.items(): print(f"Phone: {key}  User: {value} ")  не даст сразу 2 перебрать
+    #     if (record[0])['surname'] != "":
+    #         (list_readed_dicts[i])['surname'] = (record[0])['surname']
+    #     if (record[0])['name'] != "":
+    #         (list_readed_dicts[i])['name'] = (record[0])['name']
+    #     if (record[0])['fathername'] != "":
+    #         (list_readed_dicts[i])['fathername'] = (record[0])['fathername']
+    #     if (record[0])['telefon'] != 0:
+    #         (list_readed_dicts[i])['telefon'] = (record[0])['telefon']
+    #     if (record[0])['comment'] != "":
+    #         (list_readed_dicts[i])['comment'] = (record[0])['comment']
+    #      # Действие 3 - Перезаписать полностью обновлённую БД с отсутсвием удалённой записи
+    #     string_json = json.dumps(list_readed_dicts, indent=4, ensure_ascii=False) # десериализация в строку json
+    #     with open(name_path_file, "w", encoding="UTF-8") as my_file:
+    #         my_file.write(string_json)
+    #     return list_readed_dicts
+    # except:
+    #     return -1
+
+def m_print_db(db_list_of_dicts: list):
+    if len(db_list_of_dicts) < 1:
+        return -1
+    for i in range(0, 86):
+        print('═', end = "")
+    print("")
+    print("║{:^6}".format('id'), end = "|")
+    print("{:^15}".format('Фамилия'), end = "|")
+    print("{:^10}".format('Имя'), end = "|")
+    print("{:^15}".format('Отчество'), end = "|")
+    print("{:^13}".format('Телефон'), end = "|")
+    print("{:^20}".format('Комментарий'), end = "║")
+    print("")
+    for i in range(0, 86):
+        print('═', end = "")
+    print("")
+    for i in range(0, len(db_list_of_dicts)-1):
+        print("║{:^6}".format(str((db_list_of_dicts[i])['id'])), end = "|")
+        print("{:^15}".format(str((db_list_of_dicts[i])['surname'])), end = "|")
+        print("{:^10}".format(str((db_list_of_dicts[i])['name'])), end = "|")
+        print("{:^15}".format(str((db_list_of_dicts[i])['fathername'])), end = "|")
+        print("{:^13}".format(str((db_list_of_dicts[i])['telefon'])), end = "|")
+        print("{:^20}".format(str((db_list_of_dicts[i])['comment'])), end = "║")
+        print("")
+        for i in range(0, 86):
+            print('─', end = "")
+        print("")
+    else:
+        j = len(db_list_of_dicts)-1
+        print("║{:^6}".format(str((db_list_of_dicts[j])['id'])), end = "|")
+        print("{:^15}".format(str((db_list_of_dicts[j])['surname'])), end = "|")
+        print("{:^10}".format(str((db_list_of_dicts[j])['name'])), end = "|")
+        print("{:^15}".format(str((db_list_of_dicts[j])['fathername'])), end = "|")
+        print("{:^13}".format(str((db_list_of_dicts[j])['telefon'])), end = "|")
+        print("{:^20}".format(str((db_list_of_dicts[j])['comment'])), end = "║")
+        print("")
+        for i in range(0, 86):
+            print('═', end = "")
+        print("")
+
+def create_dict(id:int, surname:str, name:str, fathername:str, telefon:int, comment:str):
+    ''' 
+    функция-консруктор - для создания словаря по аргументам, в соответсвие с столбцами таблицы БД
+    
+    Вход:
+        корректный набор данных строк и целых чисел, при этом отсутсвующие не допускаются
+        вызывающий должен направить хотя бы пустое значение
+    Возвращает:
+        успешное выполнение - словарь, заполненнымй значениями (аргументами) со входа
+        сбой в заполении - (-1), как индикатор сбоя операции заполнения словаря аргументами
+    '''
+    try:  # на случай, если не передали какой-то аргумент для заполнения словаря значениямм
+        mydict = {
+            'id': id,
+            'surname': surname,
+            'name': name,
+            'fathername': fathername,
+            'telefon': telefon,
+            'comment': comment
+        }
+    except:
+        return -1     # сбой выполнения
+    return mydict     # штатное выполнение
+
+def create_dict_empty():
+    ''' 
+    функция-консруктор - для создания пустого словаря, в соответсвие с столбцами таблицы БД
+    Вход:
+       отсутсвует
+    Возвращает:
+        пустой словарь для дальнейшего его заполненнения
+    '''
+    mydict = {
+        'id': 0,
+        'surname': "",
+        'name': "",
+        'fathername': "",
+        'telefon': 800000000000,
+        'comment': ""
+    }
+    return mydict
+
+
+
+# def renumirate_id_column(list_db : list) -> list:
+#     ''' 
+#     функция для перенумерации id по порядку в bd
+
+#     Вход:
+#        список словарей - исходная база данных
+#     Возвращает:
+#         пустой словарь для дальнейшего его заполненнения
+#     Пояснение:
+#         1. Окрытие файла на чтение .json
+#         2. Сохранение в типе данных json
+#         3. Закрытие файла .json
+#         4. Поиск строк по нужному критерию
+#         5. Формирование нового словаря из результата поиска
+#     '''
 
 
 # передача небольшой функции в качестве аргумента:
@@ -279,9 +420,15 @@ def m_search(name_path_file : str, input_str : str) -> list:
 
 
 
+
+
+
 # #****************************************************************************** 
 # #********************************* НАЧАЛО ТЕСТОВ ****************************** 
 # #****************************************************************************** 
+
+# print("\n Выполнение тестов")
+
 # def give_me_any_list_of_dict():
 
 #     test_dict = [
@@ -320,7 +467,6 @@ def m_search(name_path_file : str, input_str : str) -> list:
 #     ]
 #     return test_dict
 
-# print("\n Выполнение тестов")
 # ## Получить список по умолчанию из 4-х записей/словарей
 # dict_test = give_me_any_list_of_dict()
 # # print("\nPRIMARY (not file) dict_test = ", dict_test)
@@ -404,4 +550,41 @@ def m_search(name_path_file : str, input_str : str) -> list:
 # #****************************************************************************** 
 
 
+
+# #****************************************************************************** 
+# #*************************** ТЕСТ № 5 - Показать БД *************************** 
+# #****************************************************************************** 
+
+# list_dict_show = [
+#         {
+#             "id": 1,
+#             "surname": "Гвидонов",
+#             "name": "Гвидон",
+#             "fathername": "Гвидонович",
+#             "telefon": 88552336699,
+#             "comment": "домашний"
+#         },
+#         {
+#             "id": 2,
+#             "surname": "Иванов",
+#             "name": "Сидр",
+#             "fathername": "Гаврилович",
+#             "telefon": 89196008585,
+#             "comment": "сотовый"
+#         },
+#         {
+#             "id": 3,
+#             "surname": "Петров",
+#             "name": "Константин",
+#             "fathername": "Александрович",
+#             "telefon": 89196008585,
+#             "comment": "сотовый"
+#         }
+# ]
+# m_print_db(list_dict_show)
+
 # print("\nЗавершение тестов\n ")
+
+# #****************************************************************************** 
+# #********************************* КОНЕЦ ТЕСТОВ ****************************** 
+# #****************************************************************************** 

@@ -24,7 +24,7 @@ def ui_input_new_data(x): # Для поиска, добавления и ред�
     while True:
         surname = input('Введите фамилию: ')
         logger.dif_log(surname)
-        if not surname.isalpha:
+        if not check.is_letter(surname):
             logger.dif_log(t_str)
             print(t_str)
             continue
@@ -32,7 +32,7 @@ def ui_input_new_data(x): # Для поиска, добавления и ред�
             while True:
                 name = input('Введите имя: ')
                 logger.dif_log(name)
-                if not name.isalpha:
+                if not check.is_letter(name):
                     logger.dif_log(t_str)
                     print(t_str)
                     continue
@@ -40,7 +40,7 @@ def ui_input_new_data(x): # Для поиска, добавления и ред�
                     while True:
                         fathername = input('Введите отчество: ')
                         logger.dif_log(fathername)
-                        if not fathername.isalpha:
+                        if not check.is_letter(fathername):
                             logger.dif_log(t_str)
                             print(t_str)
                             continue
@@ -48,7 +48,7 @@ def ui_input_new_data(x): # Для поиска, добавления и ред�
                             while True:
                                 telefon = input('Введите телефон: ')
                                 logger.dif_log(telefon)
-                                if not telefon.isdigit:
+                                if not check.is_telefon(telefon):
                                     logger.dif_log(t_str)
                                     print(t_str)
                                     continue
@@ -56,7 +56,7 @@ def ui_input_new_data(x): # Для поиска, добавления и ред�
                                     while True:
                                         comment = input('Введите комментарий: ')
                                         logger.dif_log(comment)
-                                        if not comment.isalpha:
+                                        if not check.is_null(comment):
                                             logger.dif_log(t_str)
                                             print(t_str)
                                             continue
@@ -70,8 +70,7 @@ def format_operation(name_operation):   # Принимает название о
     while True:   
         print(f'Выберите в каком формате файла будет происходить {name_operation}\n'
         '1 - txt\n'
-        '2 - csv\n'
-        '3 - json')
+        '2 - csv\n')
         user_input = input('и введите цифру: ')
         logger.dif_log(user_input)
         if not check.is_number(user_input, 1, 3):
@@ -93,7 +92,7 @@ def make_lst_id(): # Возвращает id, которое выбрал пол
     while True:
         user_input = input('Введите id нужной  строки: ')
         logger.dif_log(user_input)
-        if not check.is_number(user_input):
+        if not check.is_number1(user_input):
             t_str = 'Данные введены некорректно'
             logger.dif_log(t_str)
             print(t_str)
