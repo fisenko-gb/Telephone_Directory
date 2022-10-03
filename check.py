@@ -18,12 +18,6 @@ def is_number(value, min_val, max_val) -> bool:
                 return True
         return False     
 
-# # Проверка
-# ghj = 'о '
-# fdg = 1
-# ft = 5
-
-# print(f'проверка на число в интервале {is_number(ghj, fdg, ft)}')
 
 # ----------------------------------------------------
 def is_number1(value) -> bool:
@@ -42,10 +36,6 @@ def is_number1(value) -> bool:
             return False
     return True    
 
-# # Проверка
-# ghj = '34 352 '
-
-# print(f'проверка на число для проверки ID {is_number1(ghj)}')
 
 # ----------------------------------------------------
 
@@ -62,10 +52,6 @@ def is_letter(text_data) -> bool:
     else:
        return True
     
-# # # Проверка
-# ghj = 'в2ыв вы '
-
-# print(f'проверка на буквы {is_letter(ghj)}')
 
 # #----------------------------------------------------
 
@@ -80,9 +66,6 @@ def is_telefon(value_user_telefon) -> bool:
         return False
     return True
 
-# # # # Проверка
-# ghj = '12345р8910'
-# print(f'проверка телефона на число и длину {is_telefon(ghj)}')
 
 # ----------------------------------------------------
 def is_null(str_dict) -> bool:
@@ -103,7 +86,4 @@ def is_null(str_dict) -> bool:
         else: 
             return False
         
-# # # # Проверка
-# ghj = ' '
-# j = {}
-# print(f'проверка словаря/списка на пустоту {is_null(ghj)}')
+
