@@ -29,14 +29,14 @@ def test():
     string_json = json.dumps(bd_list, indent=4, ensure_ascii=False)
 
     # Записываем в файл
-    with open("test.json", "w") as my_file:
+    with open("test.json", "w", encoding="UTF-8") as my_file:
         my_file.write(string_json)
 
     export_txt(bd_list)
     export_csv(bd_list)
 
     # Читаем из файла
-    with open("test.json", "r") as my_file:
+    with open("test.json", "r", encoding="UTF-8") as my_file:
         string_json = my_file.read()
 
     # проводим десериализацию JSON-объекта
@@ -71,4 +71,4 @@ def export_csv(t_list: list, file_name: str = 'test.csv'):
         file_writer.writerows(t_list)
 
 
-#test()
+# test()
