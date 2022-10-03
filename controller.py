@@ -4,6 +4,8 @@ import ui
 import methods
 #import json 
 import time
+import export
+
 
 
 name_file = "our_bd.json"
@@ -15,7 +17,7 @@ name_file = "our_bd.json"
 def labor(do_it: int, list_rezult):
     if do_it == 1:
                 # редактирование
-        list_dick = ui.input_data_for_change(list_rezult) # метод отредактирует найденное m_search
+        list_dick = ui.ui_input_new_data(list_rezult) # метод отредактирует найденное m_search
         our_bd = methods.m_edit(name_file, list_dick)
         ui.print_ui(our_bd)
         time.sleep(3)
@@ -58,12 +60,12 @@ def action(name_file, inp_user, user_inf = ""):
             do_it = ui.ui_podmenu() # метод должен спросить за 1, 2, 3, 4 пункты и вернуть ответ в int
             labor(do_it, list_rez)
             return
-    else:
+        else:
             # метод должен спросить какой id из выведенных в консоль пользователь выбирает и возвращает его, - в list
-        list_id = ui.make_lst_id()   
-        do_it = ui.ui_podmenu()
-        labor(do_it, list_id)
-        return
+            id = ui.make_lst_id()   
+            do_it = ui.ui_podmenu()
+            labor(do_it, id)
+            return
   
     if 2 == inp_user:  #  добавление
         # метод должен выдать последовательно имена полей, а пользователь набирает что ему нужно. Пример: Surname: Бобкин
@@ -76,17 +78,12 @@ def action(name_file, inp_user, user_inf = ""):
     if 3 == inp_user:  #  экспорт
         format_file = ui.format_operation()
         if format_file == 1:
-            res = methods.export_txt()
+            res = export.export_txt()
             ui.result_operation(res)
             time.sleep(3)
             return
         elif format_file == 2:
-            res = methods.export_csv()
-            ui.result_operation(res)
-            time.sleep(3)
-            return
-        elif format_file == 3:
-            res = methods.export_json()
+            res = export.export_csv()
             ui.result_operation(res)
             time.sleep(3)
             return
@@ -110,19 +107,19 @@ def action(name_file, inp_user, user_inf = ""):
             return
 
 
+def button_click():
+    ui.hello_user()
 
-ui.hello_user()
-
-while True:
-    inp_user = ui.ui_menu()
-    if inp_user == 3 or inp_user == 4:
-        action(name_file, inp_user)
-    elif inp_user == 1:
-        user_infor = ui.ui_input_new_data
-        action(name_file, inp_user, user_infor)
-        continue
-    elif inp_user == 2:
-        new_user_data = ui.make_lst_of_dict_for_add()
-        action(name_file, inp_user, new_user_data)
-        continue
+    while True:
+        inp_user = ui.ui_menu()
+        if inp_user == 3 or inp_user == 4:
+            action(name_file, inp_user)
+        elif inp_user == 1:
+            user_infor = ui.ui_input_new_data
+            action(name_file, inp_user, user_infor)
+            continue
+        elif inp_user == 2:
+            new_user_data = ui.ui_input_new_data()
+            action(name_file, inp_user, new_user_data)
+            continue
     
