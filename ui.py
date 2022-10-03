@@ -70,10 +70,10 @@ def format_operation(name_operation):   # Принимает название о
     while True:   
         print(f'Выберите в каком формате файла будет происходить {name_operation}\n'
         '1 - txt\n'
-        '2 - csv\n')
+        '2 - csv')
         user_input = input('и введите цифру: ')
         logger.dif_log(user_input)
-        if not check.is_number(user_input, 1, 3):
+        if not check.is_number(user_input, 1, 2):
             t_str = 'Данные введены некорректно'
             logger.dif_log(t_str)
             print(t_str)
@@ -141,6 +141,49 @@ def ui_podmenu():  # Подменю
             print('До свидания!')
             exit()
         return user_input
+
+
+
+def m_print_db(db_list_of_dicts: list):
+    if len(db_list_of_dicts) < 1:
+        return -1
+    for i in range(0, 86):
+        print('═', end = "")
+    print("")
+    print("║{:^6}".format('id'), end = "|")
+    print("{:^15}".format('Фамилия'), end = "|")
+    print("{:^10}".format('Имя'), end = "|")
+    print("{:^15}".format('Отчество'), end = "|")
+    print("{:^13}".format('Телефон'), end = "|")
+    print("{:^20}".format('Комментарий'), end = "║")
+    print("")
+    for i in range(0, 86):
+        print('═', end = "")
+    print("")
+    for i in range(0, len(db_list_of_dicts)-1):
+        print("║{:^6}".format(str((db_list_of_dicts[i])['id'])), end = "|")
+        print("{:^15}".format(str((db_list_of_dicts[i])['surname'])), end = "|")
+        print("{:^10}".format(str((db_list_of_dicts[i])['name'])), end = "|")
+        print("{:^15}".format(str((db_list_of_dicts[i])['fathername'])), end = "|")
+        print("{:^13}".format(str((db_list_of_dicts[i])['telefon'])), end = "|")
+        print("{:^20}".format(str((db_list_of_dicts[i])['comment'])), end = "║")
+        print("")
+        for i in range(0, 86):
+            print('─', end = "")
+        print("")
+    else:
+        j = len(db_list_of_dicts)-1
+        print("║{:^6}".format(str((db_list_of_dicts[j])['id'])), end = "|")
+        print("{:^15}".format(str((db_list_of_dicts[j])['surname'])), end = "|")
+        print("{:^10}".format(str((db_list_of_dicts[j])['name'])), end = "|")
+        print("{:^15}".format(str((db_list_of_dicts[j])['fathername'])), end = "|")
+        print("{:^13}".format(str((db_list_of_dicts[j])['telefon'])), end = "|")
+        print("{:^20}".format(str((db_list_of_dicts[j])['comment'])), end = "║")
+        print("")
+        for i in range(0, 86):
+            print('═', end = "")
+        print("")
+
 
 
 
