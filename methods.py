@@ -13,7 +13,11 @@
                     обновляет все исходные столбцы по номеру id на непустые значения словаря на запись
                     примечание. телефон надо было хранить в тексте, а не числе (ошибка наша)
 
-    4. m_search - поиск в БД (файла) по  критерию в виде словаря (исполнитель: Рашит Фатхутдинов)
+    4. m_search - поиск в прочитанной БД (файла) по  критерию в виде словаря (исполнитель: Рашит Фатхутдинов)
+                    передаёт контроллеру всё что нашёл по столбцам в виде пересечения результатов
+                    выполнения предикатов с операцией сравнения отдельно по столбцам 
+
+    4.2 m_search_list - поиск в переданной БД (файла) по  критерию в виде словаря (исполнитель: Рашит Фатхутдинов)
                     передаёт контроллеру всё что нашёл по столбцам в виде пересечения результатов
                     выполнения предикатов с операцией сравнения отдельно по столбцам 
 
@@ -22,6 +26,7 @@
     6. create_dict - создать словарь с передаваемыми заняениями
 
     7. create_dict_empty - создать пустой словарь с значениями по умолчанию 
+
 
     Примечание 1. В самом конце блоки для тестирвания функций
     Примечание 2. Можно было реализовать, но не сделаны фукции:
@@ -66,10 +71,17 @@ def m_adding(name_path_file : str, record : list) -> list or int:
                         "telefon": 89270010101,
                         "comment": "телефон Иванов"
                     }
-                ]  <-это обязательно!
+                ]  <-это обязательно !
     '''
     try:
-        import json                                                     # импортируем библиотеку
+        # проверка на наличие файла с БД, если нет - создаьб пустой
+        import os.path as os
+        if not (os.exists(name_path_file)):
+            my_file = open(name_path_file, "w", encoding="UTF-8")
+            my_file.close()
+        
+        import json    
+        # импортируем библиотеку
         # Действие 1 - считать исходную БД в переменную
         with open(name_path_file, "r", encoding="UTF-8") as my_file:    # читаем из файла
             string_json = my_file.read()
@@ -212,7 +224,121 @@ def m_edit(name_path_file : str, record : list or dict) ->  list or int:
     except:
         return -1
 
-def m_search(list_readed_dicts : list, condition_to_find : dict or list) -> list:
+name_path_file : str
+
+def m_search(name_path_file : str, condition_to_find : dict or list) -> list:
+    '''
+    функия поиска записи по указанному значению в БД (файла .json)
+    Аргументы:
+        name_path_file  - тип данных "str | строка"
+                        в данной реализации имя файла БД с расширением .json
+                        без указания пути к файлу (корневой каталог с файлом main.py)
+        input_str - строка (но думаю должен быть правильно сформированный словарь или список)
+                    значение для поиска
+    Значение:
+        result - штатное выполнение возвращается список из словарей
+        -1 - сбой при выполнении, возвращается список из [-1]
+    Пояснение:
+        1. Окрытие файла на чтение .json
+        2. Сохранение в типе данных json
+        3. Закрытие файла .json
+        4. Поиск строк по нужному критерию, переданному набором в словаре
+        5. Формирование нового списка словарей из результата поиска
+    '''
+    try:
+        import json                                                     # импортируем библиотеку
+        # Действие 1 - считать исходную БД в переменную
+        with open(name_path_file, "r", encoding="UTF-8") as my_file:    # читаем из файла
+            string_json = my_file.read()
+        list_readed_dicts = json.loads(string_json)                      # проводим десериализацию JSON-объекта
+
+
+        # Если случайно предали искомое как словарь - перезапись его в списк из словарей
+        if (type(condition_to_find) is dict):
+            record = [condition_to_find]
+        
+        # Действие 2 - Поиск по критерию в списке словарей (БД из файла)
+        result = []
+        # формируется список из ключей, покоторым были совпадения в столбцах БД по критерию поиска
+        # при этом запоминаем, в каких столбцах/ключах был запрос поиска
+        # если кол-во удовлетворяющих столбцов меньше кол-ва запроса, то пересечение не выполняется
+        list_keys = ['surname', 'name', 'fathername', 'telefon','comment']
+        list_keys_matche_founded = []
+        count_keys_with_find_request = 0
+        for key in list_keys:
+            # !ТЕЛЕФОН не пропустить, додумать!
+            if (condition_to_find[0])[key] != "" and key != list_keys[3]: 
+                count_keys_with_find_request += 1           # столбец с запросом обнаружен
+                for i in range(len(list_readed_dicts)):     # столбец совпадением с с запросом есть ли?
+                    find_what = ((condition_to_find[0])[key]).upper() 
+                    find_where = ((list_readed_dicts[i])[key]).upper() 
+                    if find_what == find_where:             # если да, то запоминаем ключ для дальнейшего просмотра
+                        list_keys_matche_founded.append(key)
+                        break
+            # так как не знаю как пустое значение для телефона предаст UI и контроллер, проверяю:
+            #  ноль, пуст строку, пробел
+            elif str((condition_to_find[0])[key]) != '0' and str((condition_to_find[0])[key]) != '' and str((condition_to_find[0])[key]) != ' ': 
+                count_keys_with_find_request += 1           # столбец с запросом обнаружен
+                for i in range(len(list_readed_dicts)):     # столбец совпадением с с запросом есть ли?
+                    find_what = (condition_to_find[0])[key]
+                    find_where = (list_readed_dicts[i])[key]
+                    if find_what == find_where:             # если да, то запоминаем ключ для дальнейшего просмотра
+                        list_keys_matche_founded.append(key)
+                        break
+        # Если нет никаких совпадений (ничего не нашлось), то возвращаем пустой список 
+        if list_keys_matche_founded == []:
+            return [create_dict_empty()]
+        # Если не поучилось пересечения множест по столбцам 
+        # (кол-во столбцов в запросе больше кол-ва столбцов с совпадениями в основной БД)
+        elif len(list_keys_matche_founded) < count_keys_with_find_request:
+            return [create_dict_empty()]
+
+        # Если совпадение было только по одному столбцу/ключу, его и обрабатываем
+        if len(list_keys_matche_founded) == 1:
+            list_keys = list_keys_matche_founded
+            for key in list_keys:
+                if (condition_to_find[0])[key] != "": # !ТЕЛЕФОН не пропустить, додумать!
+                    for i in range(len(list_readed_dicts)):
+                        if key != 'telefon': # строка
+                            find_what = ((condition_to_find[0])[key]).upper() 
+                            find_where = ((list_readed_dicts[i])[key]).upper() 
+                        else:                # число
+                            find_what = (condition_to_find[0])[key]
+                            find_where = (list_readed_dicts[i])[key]
+
+                        if find_what == find_where:
+                            result.append(list_readed_dicts[i])
+        # Если совпадений было нескольким столбцам/ключам, то решение как через предикаты 
+        # и матрицу истинности в виде пересечения по столбцам
+        else:
+            list_keys = list_keys_matche_founded
+            count_finded_keys = len(list_keys)
+            key = list_keys[0]
+            for i in range(len(list_readed_dicts)):
+                find_what = ((condition_to_find[0])[key]).upper() 
+                find_where = ((list_readed_dicts[i])[key]).upper() 
+                if find_what in find_where:                 # совпадение по первому ключу
+                    flag_to_append = True
+                    for j in range(1, count_finded_keys):   # ищем совпадения по остальным ключам - объединение
+                        key_next = list_keys[j]
+                        if key_next != 'telefon': # строка
+                            find_what_next = ((condition_to_find[0])[key_next]).upper() 
+                            find_where_next = ((list_readed_dicts[i])[key_next]).upper() 
+                        else:                # число
+                            find_what_next = (condition_to_find[0])[key_next]
+                            find_where_next = (list_readed_dicts[i])[key_next]
+
+                        if find_what_next != find_where_next:  
+                            flag_to_append = False
+                            break
+                    if flag_to_append:
+                        result.append(list_readed_dicts[i])
+        return result
+    except:
+        return -1
+
+
+def m_search_in_list(list_readed_dicts : list, condition_to_find : dict or list) -> list:
     '''
     функия поиска записи по указанному значению в БД (файла .json)
     Аргументы:
